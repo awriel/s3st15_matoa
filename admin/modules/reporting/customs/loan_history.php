@@ -67,6 +67,14 @@ if (!$reportView) {
             echo simbio_form_element::textField('text', 'id_name', '', 'style="width: 50%"');
             ?>
             </div>
+        </div> 
+	<div class="divRow">
+            <div class="divRowLabel"><?php echo __('Institution'); ?></div>
+            <div class="divRowContent">
+            <?php
+            echo simbio_form_element::textField('text', 'inst_name', '', 'style="width: 50%"');
+            ?>
+            </div>
         </div>
         <div class="divRow">
             <div class="divRowLabel"><?php echo __('Title'); ?></div>
@@ -134,6 +142,7 @@ if (!$reportView) {
     $reportgrid = new report_datagrid();
     $reportgrid->setSQLColumn('m.member_id AS \''.__('Member ID').'\'',
         'm.member_name AS \''.__('Member Name').'\'',
+	'm.inst_name AS \''.__('Institution').'\'',
         'l.item_code AS \''.__('Item Code').'\'',
         'b.title AS \''.__('Title').'\'',
         'l.loan_date AS \''.__('Loan Date').'\'',
@@ -144,6 +153,10 @@ if (!$reportView) {
     if (isset($_GET['id_name']) AND !empty($_GET['id_name'])) {
         $id_name = $dbs->escape_string($_GET['id_name']);
         $criteria .= ' AND (m.member_id LIKE \'%'.$id_name.'%\' OR m.member_name LIKE \'%'.$id_name.'%\')';
+    }
+    if (isset($_GET['inst_name']) AND !empty($_GET['inst_name'])) {
+        $inst_name = $dbs->escape_string($_GET['inst_name']);
+        $criteria .= ' AND (m.inst_name LIKE \'%'.$inst_name.'%\')';
     }
     if (isset($_GET['title']) AND !empty($_GET['title'])) {
         $keyword = $dbs->escape_string(trim($_GET['title']));

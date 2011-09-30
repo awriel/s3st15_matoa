@@ -197,14 +197,14 @@ if (!$reportView) {
    // callback function to show loan status
     function loanStatus($obj_db, $array_data)
     {
-        if ($array_data[6] == 0) {
+        if ($array_data[7] == 0) {
             return '<strong>'.__('On Loan').'</strong>';
         } else {
             return __('Returned');
         }
     }
     // modify column value
-    $reportgrid->modifyColumnContent(6, 'callback{loanStatus}');
+    $reportgrid->modifyColumnContent(7, 'callback{loanStatus}');
 
     // put the result into variables
     echo $reportgrid->createDataGrid($dbs, $table_spec, $num_recs_show);

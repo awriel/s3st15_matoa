@@ -70,6 +70,14 @@ if (!$reportView) {
             </div>
         </div>
         <div class="divRow">
+            <div class="divRowLabel"><?php echo __('Institution'); ?></div>
+            <div class="divRowContent">
+            <?php
+            echo simbio_form_element::textField('text', 'inst_name', '', 'style="width: 50%"');
+            ?>
+            </div>
+        </div>
+        <div class="divRow">
             <div class="divRowLabel"><?php echo __('Loan Date From'); ?></div>
             <div class="divRowContent">
             <?php
@@ -130,6 +138,10 @@ if (!$reportView) {
         } else {
             $overdue_criteria .= " AND m.member_id LIKE '%$keyword%' OR m.member_name LIKE '%$keyword%'";
         }
+    }
+    if (isset($_GET['inst_name']) AND !empty($_GET['inst_name'])) {
+        $inst_name= $dbs->escape_string($_GET['inst_name']);
+        $overdue_criteria .= ' AND (m.inst_name LIKE \'%'.$inst_name.'%\')';
     }
     // loan date
     if (isset($_GET['startDate']) AND isset($_GET['untilDate'])) {

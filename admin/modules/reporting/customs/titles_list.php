@@ -79,6 +79,20 @@ if (!$reportView) {
             </div>
         </div>
         <div class="divRow">
+            <div class="divRowLabel"><?php echo __('Label'); ?></div>
+            <div class="divRowContent">
+            <?php
+            $label_q = $dbs->query('SELECT label_name, label_desc FROM mst_label');
+            $label_options = array();
+            $label_options[] = array('0', __('ALL'));
+            while ($label_d = $label_q->fetch_row()) {
+                $label_options[] = array($label_d[0], $label_d[1]);
+            }
+            echo simbio_form_element::selectList('label', $label_options);
+            ?>
+            </div>
+        </div>
+        <div class="divRow">
             <div class="divRowLabel"><?php echo __('GMD'); ?></div>
             <div class="divRowContent">
             <?php
@@ -186,6 +200,10 @@ if (!$reportView) {
         $class = $dbs->escape_string($_GET['class']);
         $criteria .= ' AND bsub.classification LIKE \''.$class.'%\'';
     }
+    if (isset($_GET['label']) AND !empty($_GET['label'])) {
+        $label = $dbs->escape_string(trim($_GET['label']));
+        $criteria .= ' AND bsub.labels =\''.$label.'\'';
+    }
     if (isset($_GET['gmd']) AND !empty($_GET['gmd'])) {
         $gmd_IDs = '';
         foreach ($_GET['gmd'] as $id) {
@@ -226,7 +244,7 @@ if (!$reportView) {
     }
 
     // subquery/view string
-    $subquery_str = '(SELECT DISTINCT bsub.biblio_id, bsub.gmd_id, bsub.title, bsub.isbn_issn, bsub.call_number, bsub.classification, bsub.language_id
+    $subquery_str = '(SELECT DISTINCT bsub.biblio_id, bsub.gmd_id, bsub.title, bsub.isbn_issn, bsub.call_number, bsub.classification, bsub.language_id, bsub.labels
         FROM biblio AS bsub
         LEFT JOIN biblio_author AS ba ON bsub.biblio_id = ba.biblio_id
         LEFT JOIN mst_author AS ma ON ba.author_id = ma.author_id

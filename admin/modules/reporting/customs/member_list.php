@@ -29,7 +29,8 @@ require '../../../../sysconfig.inc.php';
 // IP based access limitation
 require LIB_DIR.'ip_based_access.inc.php';
 do_checkIP('smc');
-do_checkIP('smc-reporting');// start the session
+do_checkIP('smc-reporting');
+// start the session
 require SENAYAN_BASE_DIR.'admin/default/session.inc.php';
 require SENAYAN_BASE_DIR.'admin/default/session_check.inc.php';
 // privileges checking
@@ -79,6 +80,12 @@ if (!$reportView) {
             <div class="divRowLabel"><?php echo __('Member ID').'/'.__('Member Name'); ?></div>
             <div class="divRowContent">
             <?php echo simbio_form_element::textField('text', 'id_name', '', 'style="width: 50%"'); ?>
+            </div>
+        </div>
+	<div class="divRow">
+            <div class="divRowLabel"><?php echo __('Institution'); ?></div>
+            <div class="divRowContent">
+            <?php echo simbio_form_element::textField('text', 'inst_name', '', 'style="width: 50%"'); ?>
             </div>
         </div>
         <div class="divRow">
@@ -136,6 +143,7 @@ if (!$reportView) {
     $reportgrid = new report_datagrid();
     $reportgrid->setSQLColumn('m.member_id AS \''.__('Member ID').'\'',
         'm.member_name AS \''.__('Member Name').'\'',
+	'm.inst_name AS \''.__('Institution').'\'',
         'mt.member_type_name AS \''.__('Membership Type').'\'');
     $reportgrid->setSQLorder('member_name ASC');
 
@@ -148,6 +156,10 @@ if (!$reportView) {
     if (isset($_GET['id_name']) AND !empty($_GET['id_name'])) {
         $id_name = $dbs->escape_string($_GET['id_name']);
         $criteria .= ' AND (m.member_id LIKE \'%'.$id_name.'%\' OR m.member_name LIKE \'%'.$id_name.'%\')';
+    }
+    if (isset($_GET['inst_name']) AND !empty($_GET['inst_name'])) {
+        $inst_name = $dbs->escape_string(trim($_GET['inst_name']));
+        $criteria .= ' AND m.inst_name LIKE \'%'.$inst_name.'%\'';
     }
     if (isset($_GET['gender']) AND $_GET['gender'] != 'ALL') {
         $gender = intval($_GET['gender']);

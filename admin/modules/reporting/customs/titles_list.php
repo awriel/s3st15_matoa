@@ -29,7 +29,8 @@ require '../../../../sysconfig.inc.php';
 // IP based access limitation
 require LIB_DIR.'ip_based_access.inc.php';
 do_checkIP('smc');
-do_checkIP('smc-reporting');// start the session
+do_checkIP('smc-reporting');
+// start the session
 require SENAYAN_BASE_DIR.'admin/default/session.inc.php';
 require SENAYAN_BASE_DIR.'admin/default/session_check.inc.php';
 // privileges checking
@@ -202,7 +203,7 @@ if (!$reportView) {
     }
     if (isset($_GET['label']) AND !empty($_GET['label'])) {
         $label = $dbs->escape_string(trim($_GET['label']));
-        $criteria .= ' AND bsub.labels =\''.$label.'\'';
+        $criteria .= ' AND bsub.labels LIKE \'%'.$label.'%\'';
     }
     if (isset($_GET['gmd']) AND !empty($_GET['gmd'])) {
         $gmd_IDs = '';

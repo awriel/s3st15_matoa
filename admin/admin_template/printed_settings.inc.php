@@ -38,14 +38,14 @@ $border_size = 1; // in pixels
 $barcode_page_margin = 0.2;
 $barcode_items_per_row = 3;
 $barcode_items_margin = 0.1;
-$barcode_box_width = 7;
-$barcode_box_height = 5;
-$barcode_include_header_text = 1; // change to 0 if dont want to use header in each barcode
+$barcode_box_width = 4;
+$barcode_box_height = 2.5;
+$barcode_include_header_text = 0; // change to 0 if dont want to use header in each barcode
 $barcode_cut_title = 50; // maximum characters in title to appear in each barcode. change to 0 if you dont want the title cutted
 $barcode_header_text = ''; // keep empty if you want to use Library Name as a header text
 $barcode_fonts = "Arial, Verdana, Helvetica, 'Trebuchet MS'"; // font to use
 $barcode_font_size = 11;
-$barcode_scale = 70; // barcode scale in percent relative to box width and height
+$barcode_scale = 80; // barcode scale in percent relative to box width and height
 $barcode_border_size = 1; // in pixels
 
 // member card print settings

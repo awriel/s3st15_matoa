@@ -36,7 +36,7 @@ $border_size = 1; // in pixels
 // item barcode print settings
 /* measurement in cm */
 $barcode_page_margin = 0.2;
-$barcode_items_per_row = 3;
+$barcode_items_per_row = 4;
 $barcode_items_margin = 0.1;
 $barcode_box_width = 4;
 $barcode_box_height = 2.5;
